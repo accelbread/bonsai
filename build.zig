@@ -41,6 +41,7 @@ pub fn build(b: *std.Build) void {
     };
 
     const exe = b.addExecutable(exe_opts);
+    linkLibraries(exe);
 
     exe.pie = true;
     exe.want_lto = optimize != .Debug;
@@ -66,6 +67,13 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_unit_tests.step);
 
     const exe_check = b.addExecutable(exe_opts);
+    linkLibraries(exe_check);
     const check_step = b.step("check", "Check if app compiles");
     check_step.dependOn(&exe_check.step);
+}
+
+fn linkLibraries(exe: *std.Build.Step.Compile) void {
+    exe.linkLibC();
+    exe.linkSystemLibrary("tree-sitter");
+    exe.linkSystemLibrary("tree-sitter-c");
 }

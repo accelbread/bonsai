@@ -18,4 +18,8 @@
 
 const std = @import("std");
 
+const c = @cImport({
+    @cInclude("tree_sitter/api.h");
+});
+
 pub fn main() !void {}

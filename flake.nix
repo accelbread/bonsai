@@ -23,5 +23,30 @@
     flakelight-zig ./. {
       license = "AGPL-3.0-or-later";
       zigFlags = [ "--release" ];
+      zigSystemLibs = pkgs:
+        let
+          treeSitterLangs = [ "c" ];
+          treeSitterGrammars = pkgs.linkFarm "tree-sitter-grammars" (map
+            (g:
+              let
+                name = "tree-sitter-${g}";
+                grammar = pkgs.tree-sitter.builtGrammars.${name};
+                pkg = pkgs.linkFarm name [{
+                  name = "lib/lib${name}.so";
+                  path = "${grammar}/parser";
+                }];
+              in
+              {
+                name = "lib/pkgconfig/${name}.pc";
+                path = pkgs.writeText "${name}-pc" ''
+                  Name: ${name}
+                  Description: Tree-sitter grammar for ${g}
+                  Version: ${grammar.version}
+                  Libs: -L${pkg}/lib -l${name}
+                '';
+              })
+            treeSitterLangs);
+        in
+        [ pkgs.tree-sitter treeSitterGrammars ];
     };
 }
