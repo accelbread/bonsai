@@ -52,5 +52,17 @@
             treeSitterLangs);
         in
         [ pkgs.tree-sitter treeSitterGrammars ];
+      zigDependencies = pkgs: pkgs.linkFarm "zig-deps" (builtins.map
+        (d:
+          let captures = builtins.match "git\\+(.*)#([a-z0-9]*)" d.url; in {
+            name = d.hash;
+            path = builtins.fetchGit {
+              url = builtins.elemAt captures 0;
+              rev = builtins.elemAt captures 1;
+              shallow = true;
+            };
+          })
+        (builtins.attrValues
+          (flakelight-zig.lib.parseZon ./build.zig.zon).dependencies));
     };
 }

@@ -18,58 +18,10 @@
 
 const std = @import("std");
 const builtin = @import("builtin");
+const breadcore = @import("breadcore");
 
-pub fn build(b: *std.Build) void {
-    const target = b.standardTargetOptions(.{
-        .default_target = .{
-            .cpu_model = if (builtin.cpu.arch == .x86_64)
-                .{ .explicit = &std.Target.x86.cpu.x86_64_v3 }
-            else
-                .baseline,
-        },
-    });
-    const optimize = b.standardOptimizeOption(.{
-        .preferred_optimize_mode = .ReleaseSafe,
-    });
-
-    const exe_opts = std.Build.ExecutableOptions{
-        .name = "bonsai",
-        .root_source_file = b.path("src/main.zig"),
-        .target = target,
-        .optimize = optimize,
-        .strip = optimize != .Debug,
-    };
-
-    const exe = b.addExecutable(exe_opts);
-    linkLibraries(exe);
-
-    exe.pie = true;
-    exe.want_lto = optimize != .Debug;
-    exe.compress_debug_sections = .zlib;
-
-    b.installArtifact(exe);
-
-    const run_cmd = b.addRunArtifact(exe);
-    run_cmd.step.dependOn(b.getInstallStep());
-    if (b.args) |args| {
-        run_cmd.addArgs(args);
-    }
-    const run_step = b.step("run", "Run the app");
-    run_step.dependOn(&run_cmd.step);
-
-    const unit_tests = b.addTest(.{
-        .root_source_file = b.path("src/main.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    const run_unit_tests = b.addRunArtifact(unit_tests);
-    const test_step = b.step("test", "Run unit tests");
-    test_step.dependOn(&run_unit_tests.step);
-
-    const exe_check = b.addExecutable(exe_opts);
-    linkLibraries(exe_check);
-    const check_step = b.step("check", "Check if app compiles");
-    check_step.dependOn(&exe_check.step);
+pub fn build(b: *std.Build) !void {
+    return breadcore.standardBuild(b, "bonsai", .exe(linkLibraries));
 }
 
 fn linkLibraries(exe: *std.Build.Step.Compile) void {

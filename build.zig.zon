@@ -26,4 +26,10 @@
         "LICENSE",
         "README.md",
     },
+    .dependencies = .{
+        .breadcore = .{
+            .url = "git+https://github.com/accelbread/breadcore-zig.git#9edee584112b50e9fc665ee6025ddfb07e3c0a47",
+            .hash = "12209a4fbf690cd625321fe6468d7419a37df6bd239c32b2da192ed2d22bd37047c1",
+        },
+    },
 }
