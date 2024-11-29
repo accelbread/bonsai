@@ -32,7 +32,7 @@ pub fn build(b: *std.Build) void {
         .preferred_optimize_mode = .ReleaseSafe,
     });
 
-    const exe_opts = .{
+    const exe_opts = std.Build.ExecutableOptions{
         .name = "bonsai",
         .root_source_file = b.path("src/main.zig"),
         .target = target,

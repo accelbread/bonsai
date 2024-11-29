@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1728304882,
-        "narHash": "sha256-ZRCvYIEvYovJyamsaEufEYKHtAvQNakssWm2deFUnwg=",
+        "lastModified": 1732538595,
+        "narHash": "sha256-iFqp/49Gobek9lzKoebafW/8Ican4aZk5appi+cvjfw=",
         "owner": "nix-community",
         "repo": "flakelight",
-        "rev": "d071005fcea1208405d9d5e31c35640e50c2e863",
+        "rev": "ac75d63fa8ee0ec8f5f3fa5c5605db9860a3b74f",
         "type": "github"
       },
       "original": {
@@ -23,11 +23,11 @@
         "flakelight": "flakelight"
       },
       "locked": {
-        "lastModified": 1728389986,
-        "narHash": "sha256-Nz7KcHKC0ju9d/8xI9O8tpPIiztLy6nUxYw1ch90NHI=",
+        "lastModified": 1732623683,
+        "narHash": "sha256-HzOQeT+YcEzv+VI5v6uNO6vLfHkHQuQNZgYIFHuLLXI=",
         "owner": "accelbread",
         "repo": "flakelight-zig",
-        "rev": "f2a6ec829f64feb06de314bacb190fc60bf8a935",
+        "rev": "9cf740451ffb08162992a1a8d44201b1a9a9fd1a",
         "type": "github"
       },
       "original": {
@@ -36,13 +36,47 @@
         "type": "github"
       }
     },
+    "flakelight_2": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1732538595,
+        "narHash": "sha256-iFqp/49Gobek9lzKoebafW/8Ican4aZk5appi+cvjfw=",
+        "owner": "nix-community",
+        "repo": "flakelight",
+        "rev": "ac75d63fa8ee0ec8f5f3fa5c5605db9860a3b74f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "flakelight",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1728018373,
-        "narHash": "sha256-NOiTvBbRLIOe5F6RbHaAh6++BNjsb149fGZd1T4+KBg=",
+        "lastModified": 1732014248,
+        "narHash": "sha256-y/MEyuJ5oBWrWAic/14LaIr/u5E0wRVzyYsouYY3W6w=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "bc947f541ae55e999ffdb4013441347d83b00feb",
+        "rev": "23e89b7da85c3640bbc2173fe04f4bd114342367",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1732014248,
+        "narHash": "sha256-y/MEyuJ5oBWrWAic/14LaIr/u5E0wRVzyYsouYY3W6w=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "23e89b7da85c3640bbc2173fe04f4bd114342367",
         "type": "github"
       },
       "original": {
@@ -54,7 +88,31 @@
     },
     "root": {
       "inputs": {
-        "flakelight-zig": "flakelight-zig"
+        "flakelight-zig": "flakelight-zig",
+        "zig-master-flake": "zig-master-flake"
+      }
+    },
+    "zig-master-flake": {
+      "inputs": {
+        "flakelight": "flakelight_2",
+        "nixpkgs": [
+          "zig-master-flake",
+          "flakelight",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1732827291,
+        "narHash": "sha256-pU9BV2dtzMjR/SuDMDPs8ZT86TxWHQBExKmI9HliOk8=",
+        "owner": "accelbread",
+        "repo": "zig-master-flake",
+        "rev": "765a0b4304dea7f4fb4537efaa65fb68bafe354e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "accelbread",
+        "repo": "zig-master-flake",
+        "type": "github"
       }
     }
   },

@@ -18,9 +18,13 @@
 
 {
   description = "Semantic command line refactoring tool.";
-  inputs.flakelight-zig.url = "github:accelbread/flakelight-zig";
-  outputs = { flakelight-zig, ... }:
+  inputs = {
+    flakelight-zig.url = "github:accelbread/flakelight-zig";
+    zig-master-flake.url = "github:accelbread/zig-master-flake";
+  };
+  outputs = { flakelight-zig, zig-master-flake, ... }:
     flakelight-zig ./. {
+      withOverlays = [ zig-master-flake.overlays.override-zig ];
       license = "AGPL-3.0-or-later";
       zigFlags = [ "--release" ];
       zigSystemLibs = pkgs:
